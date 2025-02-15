@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediateIndia - Mediation Awareness Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<style>
+    * {
+        font-family: 'Poppins', sans-serif;
+    }
+    .chatbot {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 1000;
+    }
+    .chat-window {
+        height: 400px;
+        overflow-y: auto;
+    }
+    @media (max-width: 640px) {
+        .chat-window {
+            height: 300px;
+        }
+    }
+</style>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-teal-600 text-white p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-bold">MediateIndia</h1>
+            <div class="flex items-center space-x-4">
+                <select id="languageSelector" class="bg-teal-700 text-white px-3 py-1 rounded">
+                    <option value="en">English</option>
+                    <option value="hi">हिंदी</option>
+                    <option value="ta">தமிழ்</option>
+                    <option value="te">తెలుగు</option>
+                </select>
+                <button class="hover:bg-teal-700 px-3 py-1 rounded"><i class="bi bi-person-circle"></i></button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="bg-teal-500 text-white py-16">
+        <div class="container mx-auto text-center px-4">
+            <h1 class="text-4xl font-bold mb-4">Understanding Mediation Made Simple</h1>
+            <p class="text-xl mb-8">Learn about the power of mediation in resolving disputes effectively</p>
+            <button class="bg-white text-teal-600 px-6 py-3 rounded-full font-semibold hover:bg-teal-50">
+                Get Started
+            </button>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- Features Grid -->
+        <div class="grid md:grid-cols-3 gap-8 mb-12">
+            <div class="bg-white p-6 rounded-lg shadow">
+                <i class="bi bi-book text-4xl text-teal-600"></i>
+                <h3 class="text-xl font-semibold my-3">Learn</h3>
+                <p>Access comprehensive guides about mediation process and benefits</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow">
+                <i class="bi bi-people text-4xl text-teal-600"></i>
+                <h3 class="text-xl font-semibold my-3">Connect</h3>
+                <p>Find certified mediators and join community discussions</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow">
+                <i class="bi bi-file-earmark-text text-4xl text-teal-600"></i>
+                <h3 class="text-xl font-semibold my-3">Resources</h3>
+                <p>Download guides and case studies in your preferred language</p>
+            </div>
+        </div>
+
+        <!-- Interactive Learning Section -->
+        <div class="bg-white rounded-lg shadow p-6 mb-12">
+            <h2 class="text-2xl font-bold mb-6">Interactive Learning</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="space-y-4">
+                    <div class="bg-teal-50 p-4 rounded">
+                        <h4 class="font-semibold">What is Mediation?</h4>
+                        <p>Learn the basics of mediation and its importance</p>
+                        <button class="text-teal-600 mt-2">Learn More →</button>
+                    </div>
+                    <div class="bg-teal-50 p-4 rounded">
+                        <h4 class="font-semibold">Benefits of Mediation</h4>
+                        <p>Discover why mediation is better than litigation</p>
+                        <button class="text-teal-600 mt-2">Learn More →</button>
+                    </div>
+                </div>
+                <div class="bg-teal-100 p-6 rounded">
+                    <h3 class="font-bold mb-4">Quick Quiz</h3>
+                    <div id="quiz" class="space-y-4">
+                        <!-- Quiz content will be dynamically loaded -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Community Forum -->
+        <div class="bg-white rounded-lg shadow p-6">
+            <h2 class="text-2xl font-bold mb-6">Community Forum</h2>
+            <div class="space-y-4">
+                <div class="border-b pb-4">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h4 class="font-semibold">How to start mediation process?</h4>
+                            <p class="text-gray-600">Posted by User123 • 2 hours ago</p>
+                        </div>
+                        <span class="bg-teal-100 text-teal-800 px-2 py-1 rounded text-sm">Discussion</span>
+                    </div>
+                </div>
+                <!-- More forum posts -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Chatbot -->
+    <div class="chatbot">
+        <div id="chatWindow" class="hidden bg-white rounded-lg shadow-lg w-80">
+            <div class="bg-teal-600 text-white p-4 rounded-t-lg">
+                <div class="flex justify-between items-center">
+                    <h3 class="font-semibold">Mediation Assistant</h3>
+                    <button onclick="toggleChat()" class="text-white"><i class="bi bi-x-lg"></i></button>
+                </div>
+            </div>
+            <div class="chat-window p-4" id="chatMessages">
+                <!-- Chat messages will appear here -->
+            </div>
+            <div class="p-4 border-t">
+                <div class="flex">
+                    <input type="text" id="chatInput" placeholder="Type your question..." 
+                           class="flex-1 p-2 border rounded-l focus:outline-none focus:border-teal-600">
+                    <button onclick="sendMessage()" class="bg-teal-600 text-white px-4 rounded-r">
+                        <i class="bi bi-send"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <button onclick="toggleChat()" class="bg-teal-600 text-white p-4 rounded-full shadow-lg ml-auto block">
+            <i class="bi bi-chat-dots"></i>
+        </button>
+    </div>
+
+    <script>
+        // Quiz functionality
+        const quizQuestions = [
+            {
+                question: "What is the primary goal of mediation?",
+                options: [
+                    "To win the case",
+                    "To reach a mutually acceptable solution",
+                    "To prove who is right",
+                    "To delay the process"
+                ],
+                correct: 1
+            }
+        ];
+
+        function loadQuiz() {
+            const quizContainer = document.getElementById('quiz');
+            quizQuestions.forEach((q, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.innerHTML = `
+                    <p class="font-semibold">${q.question}</p>
+                    <div class="space-y-2 mt-2">
+                        ${q.options.map((opt, i) => `
+                            <div>
+                                <input type="radio" name="q${index}" value="${i}" id="q${index}o${i}">
+                                <label for="q${index}o${i}">${opt}</label>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+                quizContainer.appendChild(questionDiv);
+            });
+        }
+
+        // Chatbot functionality
+        let isChatOpen = false;
+
+        function toggleChat() {
+            const chatWindow = document.getElementById('chatWindow');
+            isChatOpen = !isChatOpen;
+            chatWindow.classList.toggle('hidden');
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const messagesContainer = document.getElementById('chatMessages');
+            const message = input.value.trim();
+
+            if (message) {
+                // Add user message
+                messagesContainer.innerHTML += `
+                    <div class="flex justify-end mb-3">
+                        <div class="bg-teal-100 p-2 rounded-lg max-w-[80%]">
+                            ${message}
+                        </div>
+                    </div>
+                `;
+
+                // Simulate bot response
+                setTimeout(() => {
+                    messagesContainer.innerHTML += `
+                        <div class="flex mb-3">
+                            <div class="bg-gray-100 p-2 rounded-lg max-w-[80%]">
+                                I'll help you learn about mediation. What specific information would you like to know?
+                            </div>
+                        </div>
+                    `;
+                    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                }, 1000);
+
+                input.value = '';
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            loadQuiz();
+        });
+
+        // Language selector functionality
+        document.getElementById('languageSelector').addEventListener('change', (e) => {
+            // Here you would integrate with BHASHINI API to translate content
+            console.log('Selected language:', e.target.value);
+        });
+    </script>
+<script>document.body.addEventListener('wheel', e => { if (!e.ctrlKey) return; e.preventDefault(); return }, { passive: false })</script>
+	</body>
+</html>
